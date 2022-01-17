@@ -1,0 +1,18 @@
+char val; // Data received from the serial port
+int pin13 = 13; // Set the pin to digital I/O 13
+
+ void setup() {
+   pinMode(pin13, OUTPUT); // Set pin as OUTPUT
+   Serial.begin(9600); // Start serial communication at 9600 bps
+ }
+
+ void loop() {
+   if (Serial.available()) {
+     val = Serial.read();
+   }
+   if (val == '1') {
+     digitalWrite(pin13, HIGH); // turn the LED on
+   } else {
+     digitalWrite(pin13, LOW); // To na razie nie jest nam potrzebne
+   }
+ }
