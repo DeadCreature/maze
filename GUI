@@ -1,0 +1,86 @@
+import controlP5.*;
+
+ControlP5 cp5;
+
+Przycisk elektrycerz1;
+Przycisk elektrycerz2;
+Przycisk elektrycerz3;
+Przycisk zasadyGry;
+Przycisk rozpocznijGre;
+
+PoleTekstowe instrukcja;
+PoleTekstowe zasady;
+PoleTekstowe nazwaPostaci;
+
+String tekstInstrukcja = "                                 Witaj Awanturniku!"
+                    +"\n\nUważasz, że szczęście Ci sprzyja? Czeka Cię podróż na Kryonię, lodową planetę, gdzie słońce nie sięga! W świetle zórz polarnych  i lodowych pałacy szukaj klejnotów i drogocennych kamieni!\n"
+                    +"\nJednak strzeż się! Klejnotów pilnują Kryonidzi - olbrzymy wyciosani z górskich kryształów! Zastanów się dwa razy zanim podejmiesz z nimi walkę!\n"
+                    +"\n                      Wybierz postać którą chcesz grać:";
+
+String tekstZasady = "Zasady Gry:\n"
+                        +"\n1. Na całą grę posiadasz 3 życia (czerwone diody)."
+                        +"\n2. W sumie możesz zebrać 10 klejnotów (niebieskie diody)."
+                        +"\n3. Celem gry jest zdobycie serca Kryonii, klejnotu ukrytego w pałacu królewskim (żółta dioda)."
+                        +"\n4. Musisz ukończyć grę w 3 minuty - po tym czasie co 10 sekund tracisz jedno życie!";
+                        
+String tekstPostac = "";
+   
+
+   
+void setup() {
+  size(1000,1000);
+  
+  cp5 = new ControlP5(this);
+  
+  instrukcja = new PoleTekstowe("Instrukcja", 200, 100, 600, 450);
+  zasady = new PoleTekstowe("Zasady gry", 250, 200, 500, 350);                
+  nazwaPostaci = new PoleTekstowe("Wybrana Postać", 400, 720, 300,100);
+  
+  instrukcja.przypisanieTekstu(tekstInstrukcja);
+  nazwaPostaci.przypisanieTekstu(tekstPostac);
+                  
+  elektrycerz1 = new Przycisk("Elektrycerz Mosiężny", 100, 600, 200, 50);
+  elektrycerz2 = new Przycisk("Elektrycerz Żelazny", 400, 600, 200, 50);
+  elektrycerz3 = new Przycisk("Elektrycerz Kwarcowy", 700, 600, 200, 50);
+  zasadyGry = new Przycisk("Zasady Gry", 750, 900, 200, 50);
+  rozpocznijGre = new Przycisk("Rozpocznij Grę", 400, 800, 200, 50);
+  
+}
+
+void draw() {
+  background(255);
+  
+  if (elektrycerz1.status() == true) {
+      nazwaPostaci.dodanieTekstu("Elektrycerz Mosiężny");
+      print("1 on");
+  }
+  
+  else if (elektrycerz2.status() == true) {
+      nazwaPostaci.dodanieTekstu("Elektrycerz Żelazny");
+      print("2 on");
+  }
+  
+  else if (elektrycerz3.status() == true) {
+      nazwaPostaci.dodanieTekstu("Elektrycerz Kwarcowy");
+      print("3 on");
+  }
+
+  else {
+    nazwaPostaci.usuniecieTekstu();
+  }
+
+if (zasadyGry.status() == true) {
+  instrukcja.usuniecieTekstu();
+  fill(255);
+  stroke(0);
+  strokeWeight(2);
+  rect(200,150, 600, 400);
+  zasady.przypisanieTekstu(tekstZasady);
+                        ;
+}
+
+else if (zasadyGry.status() == false) {
+  instrukcja.przypisanieTekstu(tekstInstrukcja);
+  zasady.usuniecieTekstu();
+}
+}
