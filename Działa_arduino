@@ -1,0 +1,61 @@
+char krysztal; // Data received from the serial port
+
+int pin13 = 13; // Set the pin to digital I/O 13
+int pin12 = 12;
+int pin8 = 8;
+int pin7 = 7;
+int pin4 = 4;
+
+void setup() {
+
+   pinMode(pin13, OUTPUT); // Set pin as OUTPUT
+   pinMode(pin12, OUTPUT);
+   pinMode(pin8, OUTPUT);
+   pinMode(pin7, OUTPUT);
+   pinMode(pin4, OUTPUT);
+   
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  // Odbieranie informacji z Processingu
+  // Jeżeli dane z Processingu są dostępne, wrzuć je do zmiennej krysztal
+  if (Serial.available()) {
+     krysztal = Serial.read(); 
+   }
+
+   // Jeżeli dane z Processingu to "1", zapal diodę połączoną do D13
+   if (krysztal == '1') {
+     digitalWrite(pin13, HIGH); // turn the LED on
+   } 
+
+   // Jeżeli dane z Processingu to "2", zapal diodę połączoną do D12
+   if (krysztal == '2') {
+     digitalWrite(pin12, HIGH); // turn the LED on
+   }
+
+   // Jeżeli dane z Processingu to "3", zapal diodę połączoną do D8
+   if (krysztal == '3') { // If 3 was received
+     digitalWrite(pin8, HIGH); // turn the LED on
+   }
+
+   // Jeżeli dane z Processingu to "4", zapal diodę połączoną do D7
+   if (krysztal == '4') { // If 4 was received
+     digitalWrite(pin7, HIGH); // turn the LED on
+   }
+
+   // Jeżeli dane z Processingu to "5", zapal diodę połączoną do D4
+   if (krysztal == '5') { // If 5 was received
+     digitalWrite(pin4, HIGH); // turn the LED on
+  }
+
+  // Wysyłanie informacji do Processingu
+
+  // Odczytanie wartości z diody A0
+  int analogValue = analogRead(A0); 
+
+  // Przesłanie wartości z diody A0 do Processingu
+  Serial.println(analogValue);
+}
